@@ -1,0 +1,1434 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>STEEP TUNING DETAILING</title>
+  <style>
+    :root {
+      --bg: #000000;
+      --bg2: #020202;
+      --gold: #c9a227;
+      --gold2: #e8c766;
+      --txt: #f2f2f2;
+      --muted: #9a9a9a;
+      --line: #262626;
+      box-sizing: border-box;
+      padding-top: env(safe-area-inset-top, 0px);
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 70px;
+      background: #000;
+    }
+
+    body {
+      background: #000;
+      color: var(--txt);
+      font-family: 'Segoe UI', Arial, sans-serif;
+      overflow-x: hidden;
+    }
+
+    ::selection {
+      background: #ffffff;
+      color: #000000;
+    }
+
+    ::-moz-selection {
+      background: #ffffff;
+      color: #000000;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .wrap {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: transparent;
+      padding: 14px 20px 0;
+      padding-top: calc(14px + env(safe-area-inset-top, 0px));
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 22px;
+      max-width: 1180px;
+      margin: 0 auto;
+      background: rgba(15, 15, 15, .7);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, .08);
+      border-radius: 50px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+    }
+
+    .brand img {
+      height: 60px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    @media(min-width:840px) {
+      .brand img {
+        height: 72px;
+      }
+    }
+
+    .navlinks {
+      display: none;
+      gap: 24px;
+      font-size: 13.5px;
+      color: var(--muted);
+    }
+
+    .navlinks a:hover {
+      color: var(--gold2);
+    }
+
+    .langs {
+      display: flex;
+      gap: 6px;
+    }
+
+    .langs button {
+      background: none;
+      border: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 12px;
+      padding: 5px 9px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .langs button.active {
+      background: var(--gold);
+      color: #0a0a0a;
+      border-color: var(--gold);
+    }
+
+    .burger {
+      display: block;
+      background: none;
+      border: 1px solid var(--line);
+      color: var(--txt);
+      padding: 6px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-left: 8px;
+    }
+
+    @media(min-width:840px) {
+      .navlinks {
+        display: flex;
+      }
+
+      .burger {
+        display: none;
+      }
+    }
+
+    .mobilemenu {
+      display: none;
+      flex-direction: column;
+      gap: 0;
+      margin-top: 10px;
+      background: rgba(10, 10, 10, .96);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      overflow: hidden;
+      max-width: 1180px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .mobilemenu.open {
+      display: flex;
+    }
+
+    .mobilemenu a {
+      padding: 12px 24px;
+      border-bottom: 1px solid var(--line);
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .hero {
+      position: relative;
+      padding: 150px 24px 110px;
+      text-align: center;
+      background: #000;
+      overflow: hidden;
+      min-height: 78vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(.42) saturate(1.1);
+      z-index: 0;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0, 0, 0, .55) 0%, rgba(0, 0, 0, .35) 40%, #000 100%);
+      z-index: 1;
+    }
+
+    .hero .herocontent {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero h1 {
+      font-size: clamp(32px, 7vw, 64px);
+      font-weight: 900;
+      letter-spacing: 1px;
+      text-shadow: 0 4px 24px rgba(0, 0, 0, .6);
+    }
+
+    .hero h1 span {
+      color: var(--gold);
+    }
+
+    .hero p {
+      margin: 16px auto 30px;
+      max-width: 560px;
+      color: #d8d8d8;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .btnrow {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: 1px solid #fff;
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      background: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: .2s;
+    }
+
+    .btn:hover {
+      background: #fff;
+      color: #0a0a0a;
+    }
+
+    .btn.solid {
+      background: #fff;
+      color: #0a0a0a;
+    }
+
+    .btn.solid:hover {
+      background: transparent;
+      color: #fff;
+    }
+
+    :root[data-theme="light"] .btn {
+      border-color: #111;
+      color: #111;
+    }
+
+    :root[data-theme="light"] .btn:hover {
+      background: #111;
+      color: #fff;
+    }
+
+    :root[data-theme="light"] .btn.solid {
+      background: #111;
+      color: #fff;
+    }
+
+    :root[data-theme="light"] .btn.solid:hover {
+      background: transparent;
+      color: #111;
+    }
+
+    .themebtn {
+      background: none;
+      border: 1px solid var(--line);
+      color: var(--txt);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 8px;
+    }
+
+    .themebtn svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    section {
+      padding: 70px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .tag {
+      color: var(--gold);
+      font-size: 12px;
+      letter-spacing: 2px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      font-size: clamp(24px, 4vw, 36px);
+      margin: 8px 0 30px;
+      font-weight: 800;
+    }
+
+    .about p {
+      color: var(--muted);
+      line-height: 1.8;
+      max-width: 760px;
+      font-size: 15px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    @media(min-width:640px) {
+      .grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media(min-width:960px) {
+      .grid {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+    }
+
+    .card {
+      background: var(--bg2);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 24px;
+      transition: .2s;
+    }
+
+    .card:hover {
+      border-color: var(--gold);
+    }
+
+    .card .ic {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--gold), #8a6d1a);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+    }
+
+    .card .ic svg {
+      width: 22px;
+      height: 22px;
+      stroke: #0a0a0a;
+    }
+
+    .stars {
+      color: var(--gold);
+      letter-spacing: 2px;
+      font-size: 15px;
+    }
+
+    .proj-card {
+      cursor: pointer;
+    }
+
+    .proj-card .cap {
+      padding: 10px 4px 0;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .proj-card .cap b {
+      color: var(--txt);
+      display: block;
+      font-size: 13.5px;
+      margin-bottom: 2px;
+    }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, .97);
+      z-index: 200;
+      display: none;
+      overflow-y: auto;
+      padding: 40px 20px;
+    }
+
+    .overlay.open {
+      display: block;
+    }
+
+    .overlay-inner {
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    .op-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 34px;
+      margin-top: 26px;
+    }
+
+    @media(min-width:860px) {
+      .op-grid {
+        grid-template-columns: 1.1fr 1fr;
+        align-items: start;
+      }
+    }
+
+    .overlay img {
+      width: 100%;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+    }
+
+    .op-cat {
+      color: var(--gold);
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .overlay h3 {
+      font-size: 30px;
+      margin-bottom: 6px;
+    }
+
+    .overlay .tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 16px 0 20px;
+    }
+
+    .overlay .tags span {
+      border: 1px solid var(--gold);
+      color: var(--gold2);
+      font-size: 12.5px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+
+    .overlay p {
+      color: var(--muted);
+      line-height: 1.85;
+      font-size: 15px;
+      margin-top: 4px;
+    }
+
+    .op-meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 24px;
+      padding-top: 22px;
+      border-top: 1px solid var(--line);
+    }
+
+    .op-meta div b {
+      display: block;
+      color: var(--muted);
+      font-size: 11.5px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .op-meta div span {
+      font-size: 14.5px;
+      font-weight: 600;
+    }
+
+    .closebtn {
+      background: none;
+      border: 1px solid var(--line);
+      color: var(--txt);
+      padding: 9px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 13px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .card h3 {
+      font-size: 17px;
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      color: var(--muted);
+      font-size: 13.5px;
+      line-height: 1.6;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    @media(min-width:700px) {
+      .gallery {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .gallery figure {
+      position: relative;
+      border-radius: 10px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      background: #111;
+      border: 1px solid var(--line);
+    }
+
+    .gallery img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .vidgrid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    @media(min-width:700px) {
+      .vidgrid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .vidgrid figure {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      aspect-ratio: 9/16;
+      background: #111;
+      border: 1px solid var(--line);
+    }
+
+    .vidgrid video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .vidgrid figure {
+      cursor: pointer;
+    }
+
+    .soundbtn {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, .6);
+      border: 1px solid rgba(255, 255, 255, .25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+    }
+
+    .soundbtn svg {
+      width: 17px;
+      height: 17px;
+      stroke: #fff;
+    }
+
+    .subtag {
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin: 36px 0 4px;
+    }
+
+    .checkbox {
+      background: var(--bg2);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 34px;
+      max-width: 520px;
+    }
+
+    .checkbox input {
+      width: 100%;
+      background: #0a0a0a;
+      border: 1px solid var(--line);
+      color: var(--txt);
+      padding: 13px 14px;
+      border-radius: 8px;
+      font-size: 14px;
+      margin: 14px 0;
+    }
+
+    .checkbox .res {
+      margin-top: 16px;
+      font-size: 14px;
+      padding: 12px;
+      border-radius: 8px;
+      display: none;
+    }
+
+    .checkbox .res.ok {
+      display: block;
+      background: #123320;
+      color: #7be0a0;
+      border: 1px solid #1f5c37;
+    }
+
+    .checkbox .res.no {
+      display: block;
+      background: #331616;
+      color: #ff9a9a;
+      border: 1px solid #5c2020;
+    }
+
+    .contactgrid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+
+    @media(min-width:800px) {
+      .contactgrid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .contact-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      margin-bottom: 18px;
+    }
+
+    .contact-item .ic {
+      width: 40px;
+      height: 40px;
+      flex: none;
+      border-radius: 8px;
+      background: var(--bg2);
+      border: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+    }
+
+    .contact-item .ic svg {
+      width: 19px;
+      height: 19px;
+      stroke: var(--gold);
+    }
+
+    .reviews-list {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    @media(min-width:700px) {
+      .reviews-list {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .review-card {
+      background: var(--bg2);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 20px;
+    }
+
+    .review-card .rn {
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+
+    .review-card .rt {
+      color: var(--muted);
+      font-size: 13.5px;
+      line-height: 1.6;
+      margin-top: 6px;
+    }
+
+    .showmore-wrap {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .reviewform {
+      background: var(--bg2);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 28px;
+      max-width: 560px;
+    }
+
+    .reviewform input,
+    .reviewform textarea {
+      width: 100%;
+      background: #000;
+      border: 1px solid var(--line);
+      color: var(--txt);
+      padding: 12px 14px;
+      border-radius: 8px;
+      font-size: 14px;
+      margin: 10px 0;
+      font-family: inherit;
+    }
+
+    .reviewform textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .starpick {
+      display: flex;
+      gap: 6px;
+      margin: 8px 0 4px;
+    }
+
+    .starpick span {
+      font-size: 22px;
+      cursor: pointer;
+      color: #3a3a3a;
+    }
+
+    .starpick span.on {
+      color: var(--gold);
+    }
+
+    .contact-item b {
+      display: block;
+      font-size: 14px;
+    }
+
+    .contact-item span {
+      color: var(--muted);
+      font-size: 13.5px;
+    }
+
+    footer {
+      padding: 30px 24px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 12.5px;
+      border-top: 1px solid var(--line);
+    }
+
+    footer .fbrand {
+      color: var(--gold2);
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    :root:not([data-theme="light"]) {}
+
+    :root[data-theme="light"] {
+      --bg: #f4f4f2;
+      --bg2: #ffffff;
+      --txt: #141414;
+      --muted: #5a5a5a;
+      --line: #e2e0da;
+    }
+
+    :root[data-theme="light"] body {
+      background: var(--bg);
+    }
+
+    :root[data-theme="light"] html {
+      background: var(--bg);
+    }
+
+    :root[data-theme="light"] .nav {
+      background: rgba(255, 255, 255, .75);
+      border-color: rgba(0, 0, 0, .08);
+    }
+
+    :root[data-theme="light"] .mobilemenu {
+      background: rgba(255, 255, 255, .98);
+    }
+
+    :root[data-theme="light"] .card .ic svg {
+      stroke: #fff;
+    }
+
+    :root[data-theme="light"] .reviewform input,
+    :root[data-theme="light"] .reviewform textarea {
+      background: #f4f4f2;
+    }
+
+    :root[data-theme="light"] .langs button {
+      color: #5a5a5a;
+    }
+
+    :root[data-theme="light"] ::selection {
+      background: #000;
+      color: #fff;
+    }
+
+    :root[data-theme="light"] .overlay {
+      background: rgba(255, 255, 255, .97);
+    }
+
+    :root[data-theme="light"] .gallery figure,
+    :root[data-theme="light"] .vidgrid figure {
+      background: #eee;
+    }
+
+    :root[data-theme="light"] .op-cat,
+    :root[data-theme="light"] .tag {
+      color: #a5811e;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="nav">
+      <div class="brand" ><img src="assets/logo.png" alt="logo"></div>
+      <div class="navlinks">
+        <a href="#about" data-i="nav_about">О нас</a>
+        <a href="#services" data-i="nav_services">Услуги</a>
+        <a href="#gallery" data-i="nav_gallery">Проекты</a>
+        <a href="#reviews" data-i="nav_check">Отзывы</a>
+        <a href="#contacts" data-i="nav_contacts">Контакты</a>
+      </div>
+      <div style="display:flex;align-items:center;">
+        <div class="langs">
+          <button data-lang="ru" class="active">RU</button>
+          <button data-lang="en">EN</button>
+          <button data-lang="uz">UZ</button>
+        </div>
+        <button class="burger" id="burgerBtn">☰</button>
+      </div>
+    </div>
+    <div class="mobilemenu" id="mobileMenu">
+      <a href="#about">О нас</a><a href="#services">Услуги</a><a href="#gallery">Проекты</a><a
+        href="#reviews">Отзывы</a><a href="#contacts">Контакты</a>
+    </div>
+  </header>
+
+  <section class="hero" style="border-top:none;">
+    <video autoplay muted loop playsinline preload="auto" src="assets/hero2.mp4"></video>
+    <div class="wrap herocontent">
+      <h1 data-i="hero_title">STEEP <span>TUNING</span> DETAILING</h1>
+      <p data-i="hero_sub">Полировка, керамика, бронировка и тонировка премиум-класса для вашего автомобиля в Джизаке.
+      </p>
+      <div class="btnrow">
+        <button class="btn solid" onclick="document.getElementById('services').scrollIntoView()"
+          data-i="hero_btn1">Смотреть услуги →</button>
+        <button class="btn" onclick="document.getElementById('gallery').scrollIntoView()" data-i="hero_btn2">Наши работы
+          →</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="wrap about">
+      <div class="tag">// ABOUT</div>
+      <h2 data-i="about_title">О нас</h2>
+      <p data-i="about_text">STEEP TUNING DETAILING — студия детейлинга и тюнинга в Джизаке. Мы заботимся о каждом
+        автомобиле как о своём: используем профессиональные материалы, современное оборудование и работаем без
+        компромиссов к качеству и срокам.</p>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="wrap">
+      <div class="tag">// SERVICES</div>
+      <h2 data-i="services_title">Услуги</h2>
+      <div class="grid">
+        <div class="card">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M21 12a9 9 0 1 1-3-6.7" />
+              <path d="M21 3v6h-6" />
+            </svg></div>
+          <h3 data-i="s1_t">Полировка</h3>
+          <p data-i="s1_d">Восстановление и защита лакокрасочного покрытия, устранение царапин и потёртостей.</p>
+        </div>
+        <div class="card">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"
+              stroke-linejoin="round">
+              <rect x="3" y="5" width="18" height="14" rx="2" />
+              <path d="M3 9h18M9 9v10" />
+            </svg></div>
+          <h3 data-i="s2_t">Тонировка</h3>
+          <p data-i="s2_d">Качественная тонировка стёкол с защитой от солнца и посторонних глаз.</p>
+        </div>
+        <div class="card">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z" />
+            </svg></div>
+          <h3 data-i="s3_t">Бронировка</h3>
+          <p data-i="s3_d">Защитная плёнка PPF от сколов, царапин и мелких повреждений кузова.</p>
+        </div>
+        <div class="card">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M12 2 3 9l9 13 9-13-9-7Z" />
+              <path d="M3 9h18M9.5 9 12 2l2.5 7M12 22V9" />
+            </svg></div>
+          <h3 data-i="s4_t">Керамика</h3>
+          <p data-i="s4_d">Керамическое покрытие для глубокого блеска и долговременной защиты кузова.</p>
+        </div>
+        <div class="card">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M4 20c1-3 2-5 2-8a6 6 0 1 1 12 0c0 3 1 5 2 8" />
+              <path d="M9 20h6" />
+            </svg></div>
+          <h3 data-i="s5_t">Химчистка</h3>
+          <p data-i="s5_d">Глубокая химчистка салона: сидения, потолок, ковролин, пластик.</p>
+        </div>
+        <div class="card">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M3 10v4h4l5 4V6L7 10H3Z" />
+              <path d="M19 9a4 4 0 0 1 0 6M22 7a8 8 0 0 1 0 10" opacity="0" />
+              <path d="M17 8l6 8M23 8l-6 8" />
+            </svg></div>
+          <h3 data-i="s6_t">Шумоизоляция</h3>
+          <p data-i="s6_d">Комплексная шумоизоляция дверей, пола и арок для тихой и комфортной поездки.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery">
+    <div class="wrap">
+      <div class="tag">// PROJECTS</div>
+      <h2 data-i="gallery_title">Наши работы</h2>
+      <div class="gallery" id="galleryGrid"></div>
+      <div class="subtag" data-i="video_title">Видео с процесса</div>
+      <div class="vidgrid">
+        <figure onclick="toggleSound(this)"><video src="assets/v1full.mp4" autoplay muted loop playsinline
+            preload="metadata"></video><span class="soundbtn"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M11 5 6 9H2v6h4l5 4V5Z" />
+              <line x1="23" y1="9" x2="17" y2="15" />
+              <line x1="17" y1="9" x2="23" y2="15" />
+            </svg></span></figure>
+        <figure onclick="toggleSound(this)"><video src="assets/v2full.mp4" autoplay muted loop playsinline
+            preload="metadata"></video><span class="soundbtn"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M11 5 6 9H2v6h4l5 4V5Z" />
+              <line x1="23" y1="9" x2="17" y2="15" />
+              <line x1="17" y1="9" x2="23" y2="15" />
+            </svg></span></figure>
+        <figure onclick="toggleSound(this)"><video src="assets/polish.mp4" autoplay muted loop playsinline
+            preload="metadata"></video><span class="soundbtn"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M11 5 6 9H2v6h4l5 4V5Z" />
+              <line x1="23" y1="9" x2="17" y2="15" />
+              <line x1="17" y1="9" x2="23" y2="15" />
+            </svg></span></figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="reviews">
+    <div class="wrap">
+      <div class="tag">// REVIEWS</div>
+      <h2 data-i="check_title">Отзывы</h2>
+      <div class="reviews-list" id="reviewsList"></div>
+      <div class="showmore-wrap" id="showMoreWrap" style="display:none;">
+        <button class="btn" onclick="showMoreReviews()" id="showMoreBtn" data-i="show_more">Показать ещё</button>
+      </div>
+      <div class="reviewform">
+        <div data-i="rev_form_title" style="font-weight:700;margin-bottom:4px;">Оставить отзыв</div>
+        <p data-i="rev_form_sub" style="color:var(--muted);font-size:13px;">Поделитесь впечатлением о нашей работе.</p>
+        <input id="revName" data-i-ph="rev_name_ph" placeholder="Ваше имя">
+        <div class="starpick" id="starPick">
+          <span data-v="1">★</span><span data-v="2">★</span><span data-v="3">★</span><span data-v="4">★</span><span
+            data-v="5">★</span>
+        </div>
+        <textarea id="revText" data-i-ph="rev_text_ph" placeholder="Ваш отзыв..."></textarea>
+        <button class="btn solid" style="width:100%;" onclick="submitReview()" data-i="rev_btn">Отправить</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="contacts">
+    <div class="wrap">
+      <div class="tag">// CONTACTS</div>
+      <h2 data-i="contacts_title">Контакты</h2>
+      <div class="contactgrid">
+        <div>
+          <div class="contact-item">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path
+                  d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.4 2.1L8 9.9a16 16 0 0 0 6 6l1.4-1.4a2 2 0 0 1 2.1-.4c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.8 2.2Z" />
+              </svg></div>
+            <div><b data-i="c_phone">Телефоны</b><span><a href="tel:+998886413636">+998 88 641 36 36</a><br><a
+                  href="tel:+998337899393">+998 33 789 93 93</a></span></div>
+          </div>
+          <div class="contact-item">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 2 11 13" />
+                <path d="M22 2 15 22l-4-9-9-4 20-7Z" />
+              </svg></div>
+            <div><b>Telegram</b><span><a href="https://t.me/Steep_Tuning_Detailing"
+                  target="_blank">t.me/Steep_Tuning_Detailing</a></span></div>
+          </div>
+          <div class="contact-item">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" />
+                <circle cx="12" cy="12" r="4.2" />
+                <circle cx="17.4" cy="6.6" r="0.7" fill="currentColor" stroke="none" />
+              </svg></div>
+            <div><b>Instagram</b><span><a href="https://www.instagram.com/steep_tuning"
+                  target="_blank">@steep_tuning</a></span></div>
+          </div>
+        </div>
+        <div>
+          <div class="contact-item">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                <circle cx="12" cy="10" r="3" />
+              </svg></div>
+            <div><b data-i="c_addr">Адрес</b><span data-i="c_addr_v">ул. Хонарик, г. Джизак<br>напротив чайханы «JAHON
+                to'yxona», ориентир «ISLOMJON»</span>
+              <div style="color:var(--muted);font-size:12.5px;margin-top:6px;letter-spacing:.3px;">40.134852, 67.833808
+              </div>
+              <a href="https://www.google.com/maps?q=40.134852,67.833808" target="_blank" class="btn"
+                style="display:inline-block;margin-top:12px;padding:9px 18px;font-size:12.5px;"><span
+                  data-i="c_map">Открыть на карте</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:30px;border-radius:14px;overflow:hidden;border:1px solid var(--line);">
+        <iframe src="https://maps.google.com/maps?q=40.134852,67.833808&z=16&output=embed" width="100%" height="320"
+          style="border:0;filter:grayscale(.3) invert(.92) contrast(.9);display:block;" loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <div class="overlay" id="projectOverlay">
+    <div class="overlay-inner">
+      <button class="closebtn" onclick="closeProject()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 12H5M12 19l-7-7 7-7" />
+        </svg>
+        <span data-i="back_btn">Назад</span>
+      </button>
+      <div class="op-grid">
+        <img id="opImg" src="" alt="">
+        <div>
+          <div class="op-cat" id="opCat"></div>
+          <h3 id="opTitle"></h3>
+          <div class="stars" id="opStars"></div>
+          <div class="tags" id="opTags"></div>
+          <p id="opDesc"></p>
+          <div class="op-meta">
+            <div><b data-i="op_duration">Срок работ</b><span id="opDuration"></span></div>
+            <div><b data-i="op_material">Материал</b><span id="opMaterial"></span></div>
+            <div><b data-i="op_master">Мастер</b><span id="opMaster"></span></div>
+            <div><b data-i="op_result">Результат</b><span id="opResult"></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="fbrand">STEEP TUNING DETAILING</div>
+    <div data-i="footer_txt">© 2026 Steep Tuning Detailing. Все права защищены.</div>
+  </footer>
+
+  <script>
+    const dict = {
+      ru: {
+        nav_about: "О нас", nav_services: "Услуги", nav_gallery: "Проекты", nav_check: "Проверка", nav_contacts: "Контакты",
+        hero_title: 'STEEP <span>TUNING</span> DETAILING', hero_sub: "Полировка, керамика, бронировка и тонировка премиум-класса для вашего автомобиля в Джизаке.",
+        hero_btn1: "Смотреть услуги →", hero_btn2: "Наши работы →", about_title: "О нас",
+        about_text: "STEEP TUNING DETAILING — студия детейлинга и тюнинга в Джизаке. Мы заботимся о каждом автомобиле как о своём: используем профессиональные материалы, современное оборудование и работаем без компромиссов к качеству и срокам.",
+        services_title: "Услуги",
+        s1_t: "Полировка", s1_d: "Восстановление и защита лакокрасочного покрытия, устранение царапин и потёртостей.",
+        s2_t: "Тонировка", s2_d: "Качественная тонировка стёкол с защитой от солнца и посторонних глаз.",
+        s3_t: "Бронировка", s3_d: "Защитная плёнка PPF от сколов, царапин и мелких повреждений кузова.",
+        s4_t: "Керамика", s4_d: "Керамическое покрытие для глубокого блеска и долговременной защиты кузова.",
+        s5_t: "Химчистка", s5_d: "Глубокая химчистка салона: сидения, потолок, ковролин, пластик.",
+        s6_t: "Шумоизоляция", s6_d: "Комплексная шумоизоляция дверей, пола и арок для тихой и комфортной поездки.",
+        gallery_title: "Наши работы", video_title: "Видео с процесса", check_title: "Отзывы", back_btn: "Назад", op_duration: "Срок работ", op_material: "Материал", op_master: "Мастер", op_result: "Результат", show_more: "Показать ещё", rev_form_title: "Оставить отзыв", rev_form_sub: "Поделитесь впечатлением о нашей работе.", rev_name_ph: "Ваше имя", rev_text_ph: "Ваш отзыв...", rev_btn: "Отправить",
+        contacts_title: "Контакты", c_phone: "Телефоны", c_addr: "Адрес",
+        c_addr_v: "ул. Хонарик, г. Джизак<br>напротив чайханы «JAHON to'yxona», ориентир «ISLOMJON»", c_map: "Открыть на карте",
+        footer_txt: "© 2026 Steep Tuning Detailing. Все права защищены."
+      },
+      en: {
+        nav_about: "About", nav_services: "Services", nav_gallery: "Projects", nav_check: "Verify", nav_contacts: "Contacts",
+        hero_title: 'STEEP <span>TUNING</span> DETAILING', hero_sub: "Premium polishing, ceramic coating, PPF wrap and tinting for your car in Jizzakh.",
+        hero_btn1: "View services →", hero_btn2: "Our work →", about_title: "About us",
+        about_text: "STEEP TUNING DETAILING is a car detailing and tuning studio in Jizzakh. We treat every car like our own — using professional materials, modern equipment, and no compromise on quality or deadlines.",
+        services_title: "Services",
+        s1_t: "Polishing", s1_d: "Paint restoration and protection, scratch and swirl removal.",
+        s2_t: "Window Tinting", s2_d: "High quality tinting for sun protection and privacy.",
+        s3_t: "PPF Wrap", s3_d: "Protective film against chips, scratches and minor body damage.",
+        s4_t: "Ceramic Coating", s4_d: "Ceramic coating for deep gloss and long-term body protection.",
+        s5_t: "Interior Cleaning", s5_d: "Deep interior cleaning: seats, ceiling, carpet and plastics.",
+        s6_t: "Sound Insulation", s6_d: "Full sound insulation of doors, floor and wheel arches for a quiet ride.",
+        gallery_title: "Our work", video_title: "Process videos", check_title: "Reviews", back_btn: "Back", op_duration: "Duration", op_material: "Material", op_master: "Specialist", op_result: "Result", show_more: "Show more", rev_form_title: "Leave a review", rev_form_sub: "Share your experience with our work.", rev_name_ph: "Your name", rev_text_ph: "Your review...", rev_btn: "Submit",
+        contacts_title: "Contacts", c_phone: "Phone", c_addr: "Address",
+        c_addr_v: "Khonarik street, Jizzakh city<br>opposite «JAHON to'yxona» hall, landmark «ISLOMJON»", c_map: "Open in Maps",
+        footer_txt: "© 2026 Steep Tuning Detailing. All rights reserved."
+      },
+      uz: {
+        nav_about: "Biz haqimizda", nav_services: "Xizmatlar", nav_gallery: "Loyihalar", nav_check: "Tekshirish", nav_contacts: "Aloqa",
+        hero_title: 'STEEP <span>TUNING</span> DETAILING', hero_sub: "Jizzaxda avtomobilingiz uchun premium darajadagi poliruvka, keramika, bronировка va tonirovka xizmatlari.",
+        hero_btn1: "Xizmatlarni ko'rish →", hero_btn2: "Ishlarimiz →", about_title: "Biz haqimizda",
+        about_text: "STEEP TUNING DETAILING — Jizzaxdagi detailing va tyuning studiyasi. Biz har bir avtomobilga o'zimiznikidek g'amxo'rlik qilamiz: professional materiallar va zamonaviy uskunalardan foydalanamiz, sifat va muddatga hech qanday murosasiz yondashamiz.",
+        services_title: "Xizmatlar",
+        s1_t: "Poliruvka", s1_d: "Bo'yoq qoplamasini tiklash va himoya qilish, tirnalgan joylarni yo'qotish.",
+        s2_t: "Tonirovka", s2_d: "Quyoshdan va begona ko'zlardan himoya qiluvchi sifatli oyna tonirovkasi.",
+        s3_t: "Bronировка (PPF)", s3_d: "Kuzovni chizilish va mayda shikastlanishlardan himoya qiluvchi himoya plyonkasi.",
+        s4_t: "Keramika", s4_d: "Chuqur yaltiroqlik va uzoq muddatli himoya uchun keramik qoplama.",
+        s5_t: "Ximchistka", s5_d: "Salonni chuqur tozalash: o'rindiqlar, tavon, gilam, plastik qismlar.",
+        s6_t: "Shumoizolyatsiya", s6_d: "Eshiklar, pol va g'ildirak qanotlarining to'liq shovqin izolyatsiyasi.",
+        gallery_title: "Ishlarimiz", video_title: "Jarayon videolari", check_title: "Sharhlar", back_btn: "Orqaga", op_duration: "Ish muddati", op_material: "Material", op_master: "Usta", op_result: "Natija", show_more: "Ko'proq ko'rsatish", rev_form_title: "Sharh qoldirish", rev_form_sub: "Ishimiz haqida taassurotingizni ulashing.", rev_name_ph: "Ismingiz", rev_text_ph: "Sharhingiz...", rev_btn: "Yuborish",
+        contacts_title: "Aloqa", c_phone: "Telefonlar", c_addr: "Manzil",
+        c_addr_v: "Xonarik ko'chasi, Jizzax shahri<br>«JAHON to'yxona» ro'parasi, mo'ljal «ISLOMJON»", c_map: "Xaritada ochish",
+        footer_txt: "© 2026 Steep Tuning Detailing. Barcha huquqlar himoyalangan."
+      }
+    };
+
+    function setLang(l) {
+      document.querySelectorAll('[data-i]').forEach(el => {
+        const key = el.getAttribute('data-i');
+        if (dict[l][key] !== undefined) { el.innerHTML = dict[l][key]; }
+      });
+      document.querySelectorAll('[data-i-ph]').forEach(el => {
+        const key = el.getAttribute('data-i-ph');
+        if (dict[l][key] !== undefined) { el.placeholder = dict[l][key]; }
+      });
+      document.querySelectorAll('.langs button').forEach(b => b.classList.toggle('active', b.dataset.lang === l));
+      document.documentElement.lang = l;
+      try { localStorage.setItem('std_lang', l); } catch (e) { }
+      if (typeof renderGallery === 'function') renderGallery();
+      if (typeof renderReviews === 'function') renderReviews();
+    }
+    document.querySelectorAll('.langs button').forEach(b => {
+      b.addEventListener('click', () => setLang(b.dataset.lang));
+    });
+    document.getElementById('burgerBtn').addEventListener('click', () => {
+      document.getElementById('mobileMenu').classList.toggle('open');
+    });
+    document.querySelectorAll('.mobilemenu a').forEach(a => a.addEventListener('click', () => document.getElementById('mobileMenu').classList.remove('open')));
+
+    // ---- process video sound toggle ----
+    const ICON_MUTED = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5Z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>';
+    const ICON_ON = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5Z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 6a9 9 0 0 1 0 12"/></svg>';
+    function toggleSound(fig) {
+      const v = fig.querySelector('video');
+      document.querySelectorAll('.vidgrid video').forEach(other => {
+        if (other !== v) { other.muted = true; other.closest('figure').querySelector('.soundbtn').innerHTML = ICON_MUTED; }
+      });
+      v.muted = !v.muted;
+      fig.querySelector('.soundbtn').innerHTML = v.muted ? ICON_MUTED : ICON_ON;
+      if (!v.muted) v.play();
+    }
+
+    // ---- projects data ----
+    const projects = [
+      {
+        id: "g63-ppf", img: "assets/car5.jpg", rating: 5, dur: "3", mat: "3M / Spectroll PPF", master: "Улугбек", res: { ru: "Зеркальный блеск, полная защита кузова", en: "Mirror gloss, full body protection", uz: "Oyna kabi yaltiroqlik, kuzov to'liq himoyasi" },
+        cat: { ru: "Бронировка / Тонировка", en: "PPF / Tinting", uz: "Bronировка / Tonirovka" },
+        t: { ru: "Mercedes G63 AMG", en: "Mercedes G63 AMG", uz: "Mercedes G63 AMG" },
+        tags: { ru: ["Бронировка PPF", "Тонировка", "Керамика"], en: ["PPF Wrap", "Tinting", "Ceramic"], uz: ["PPF bronировka", "Tonirovka", "Keramika"] },
+        d: {
+          ru: "Полная оклейка кузова защитной плёнкой PPF с гарантией до 8 лет, тонировка стёкол и керамическое покрытие для глубокого блеска.",
+          en: "Full-body PPF wrap with up to 8-year warranty, window tinting and ceramic coating for a deep, lasting shine.",
+          uz: "Kuzovni to'liq 8 yilgacha kafolatli PPF plyonka bilan qoplash, oyna tonirovkasi va chuqur yaltiroqlik uchun keramik qoplama."
+        }
+      },
+      {
+        id: "malibu-ceramic", img: "assets/car4.jpg", rating: 5, dur: "1", mat: "Butterfly Ceramic", master: "Жасур", res: { ru: "Глубокая, устойчивая к царапинам защита", en: "Deep, scratch-resistant protection", uz: "Chuqur, chizilishga chidamli himoya" },
+        cat: { ru: "Керамика / Полировка", en: "Ceramic / Polishing", uz: "Keramika / Poliruvka" },
+        t: { ru: "Chevrolet Malibu", en: "Chevrolet Malibu", uz: "Chevrolet Malibu" },
+        tags: { ru: ["Керамика", "Полировка"], en: ["Ceramic", "Polishing"], uz: ["Keramika", "Poliruvka"] },
+        d: {
+          ru: "Полировка кузова до зеркального блеска и нанесение керамического покрытия для стойкой защиты лакокрасочного покрытия.",
+          en: "Mirror-finish body polishing followed by ceramic coating for long-lasting paint protection.",
+          uz: "Kuzovni oyna kabi yaltiratib poliruvka qilish va bo'yoqni uzoq muddat himoya qiluvchi keramik qoplama qo'llash."
+        }
+      },
+      {
+        id: "eclass-detail", img: "assets/car6.jpg", rating: 5, dur: "2", mat: "Silla Ceramic", master: "Диловар", res: { ru: "Обновлённый вид салона и кузова", en: "Refreshed interior and exterior look", uz: "Yangilangan salon va kuzov ko'rinishi" },
+        cat: { ru: "Комплексный детейлинг", en: "Full Detailing", uz: "Kompleks detailing" },
+        t: { ru: "Mercedes E-Class", en: "Mercedes E-Class", uz: "Mercedes E-Class" },
+        tags: { ru: ["Полировка", "Химчистка", "Тонировка"], en: ["Polishing", "Interior Cleaning", "Tinting"], uz: ["Poliruvka", "Ximchistka", "Tonirovka"] },
+        d: {
+          ru: "Комплексный детейлинг: полировка кузова, глубокая химчистка салона и тонировка стёкол для классического седана.",
+          en: "Full detailing package: body polishing, deep interior cleaning and window tinting for this classic sedan.",
+          uz: "Kompleks detailing: kuzovni poliruvka qilish, salonni chuqur ximchistka qilish va oyna tonirovkasi."
+        }
+      },
+      {
+        id: "suv-ceramic", img: "assets/car2.jpg", rating: 5, dur: "2", mat: "Ceramic Pro", master: "Сардор", res: { ru: "Насыщенный чёрный цвет, лёгкая мойка", en: "Rich black finish, easy to wash", uz: "To'q qora rang, yuvish oson" },
+        cat: { ru: "Керамика / Тонировка", en: "Ceramic / Tinting", uz: "Keramika / Tonirovka" },
+        t: { ru: "Premium SUV", en: "Premium SUV", uz: "Premium SUV" },
+        tags: { ru: ["Керамика", "Тонировка", "Химчистка"], en: ["Ceramic", "Tinting", "Interior Cleaning"], uz: ["Keramika", "Tonirovka", "Ximchistka"] },
+        d: {
+          ru: "Керамическое покрытие кузова, тонировка стёкол и химчистка салона — полный уход за премиальным кроссовером.",
+          en: "Body ceramic coating, window tinting and interior cleaning — full care for a premium crossover.",
+          uz: "Kuzovga keramik qoplama, oyna tonirovkasi va salon ximchistkasi — premium krossoverga to'liq parvarish."
+        }
+      },
+      {
+        id: "lacetti-tuning", img: "assets/workshop.jpg", rating: 5, dur: "1", mat: "LED / Полироль", master: "Азизбек", res: { ru: "Яркий свет фар, свежий внешний вид", en: "Bright headlights, fresh exterior look", uz: "Yorqin faralar, yangilangan tashqi ko'rinish" },
+        cat: { ru: "Тюнинг оптики", en: "Lighting Tuning", uz: "Optika tyuningi" },
+        t: { ru: "Chevrolet Lacetti", en: "Chevrolet Lacetti", uz: "Chevrolet Lacetti" },
+        tags: { ru: ["Тюнинг оптики", "Полировка"], en: ["Lighting Tuning", "Polishing"], uz: ["Optika tyuningi", "Poliruvka"] },
+        d: {
+          ru: "Установка светодиодной оптики, тюнинг переднего бампера и полировка кузова до глянцевого блеска.",
+          en: "LED headlight installation, front bumper tuning and body polishing to a glossy finish.",
+          uz: "LED optika o'rnatish, old bamper tyuningi va kuzovni yaltiroq holatga poliruvka qilish."
+        }
+      },
+      {
+        id: "malibu2-ceramic", img: "assets/n1.jpg", rating: 5, dur: "1", mat: "Butterfly / Silla / Aegis", master: "Ботир", res: { ru: "Насыщенный глубокий блеск", en: "Rich, deep gloss finish", uz: "Chuqur va boy yaltiroqlik" },
+        cat: { ru: "Керамика / Полировка", en: "Ceramic / Polishing", uz: "Keramika / Poliruvka" },
+        t: { ru: "Chevrolet Malibu", en: "Chevrolet Malibu", uz: "Chevrolet Malibu" },
+        tags: { ru: ["Керамика", "Полировка", "Логотип-бренд"], en: ["Ceramic", "Polishing", "Brand Badge"], uz: ["Keramika", "Poliruvka", "Brend belgisi"] },
+        d: {
+          ru: "Многоэтапная полировка кузова и нанесение керамического состава Butterfly/Silla/Aegis для стойкого зеркального блеска.",
+          en: "Multi-stage body polishing followed by Butterfly/Silla/Aegis ceramic coating for a lasting mirror shine.",
+          uz: "Kuzovni ko'p bosqichli poliruvka qilish va Butterfly/Silla/Aegis keramik qoplamasini qo'llash — uzoq muddatli oyna kabi yaltiroqlik."
+        }
+      },
+      {
+        id: "escalade-ppf", img: "assets/n2.jpg", rating: 5, dur: "4", mat: "PRO-SHIELD PPF", master: "Шерзод", res: { ru: "Полная невидимая защита от сколов", en: "Full invisible protection from chips", uz: "To'liq ko'rinmas himoya" },
+        cat: { ru: "Бронировка кузова", en: "Full PPF Wrap", uz: "Kuzov bronировkasi" },
+        t: { ru: "Cadillac Escalade", en: "Cadillac Escalade", uz: "Cadillac Escalade" },
+        tags: { ru: ["Бронировка PPF", "Тонировка"], en: ["PPF Wrap", "Tinting"], uz: ["PPF bronировka", "Tonirovka"] },
+        d: {
+          ru: "Полная оклейка кузова премиальной плёнкой PRO-SHIELD PPF с гарантией до 7 лет и тонировка стёкол крупного внедорожника.",
+          en: "Full-body wrap with premium PRO-SHIELD PPF, up to 7-year warranty, plus window tinting for this full-size SUV.",
+          uz: "Katta hajmli SUV kuzovini premium PRO-SHIELD PPF plyonka bilan 7 yilgacha kafolat bilan qoplash va oyna tonirovkasi."
+        }
+      },
+      {
+        id: "equinox-detail", img: "assets/n3.jpg", rating: 5, dur: "1", mat: "Полироль / PPF", master: "Комил", res: { ru: "Свежий, ухоженный внешний вид", en: "Fresh, well-kept exterior", uz: "Yangi va parvarishlangan ko'rinish" },
+        cat: { ru: "Полировка / Защита", en: "Polishing / Protection", uz: "Poliruvka / Himoya" },
+        t: { ru: "Chevrolet Equinox", en: "Chevrolet Equinox", uz: "Chevrolet Equinox" },
+        tags: { ru: ["Полировка", "Защитная плёнка", "Химчистка"], en: ["Polishing", "Protective Film", "Interior Cleaning"], uz: ["Poliruvka", "Himoya plyonkasi", "Ximchistka"] },
+        d: {
+          ru: "Полировка кузова, частичная оклейка защитной плёнкой уязвимых зон и химчистка салона кроссовера.",
+          en: "Body polishing, partial protective film on vulnerable areas, and interior cleaning for this crossover.",
+          uz: "Kuzovni poliruvka qilish, zaif joylarga qisman himoya plyonkasi yopishtirish va salonni ximchistka qilish."
+        }
+      },
+      {
+        id: "x7-matte", img: "assets/n4.jpg", rating: 5, dur: "5", mat: "Matte PPF", master: "Жаҳонгир", res: { ru: "Эффектный матовый вид, полная защита", en: "Striking matte look, full protection", uz: "Ta'sirchan mat ko'rinish, to'liq himoya" },
+        cat: { ru: "Матовая бронировка", en: "Matte PPF Wrap", uz: "Mat bronировka" },
+        t: { ru: "BMW X7", en: "BMW X7", uz: "BMW X7" },
+        tags: { ru: ["Матовая PPF", "Тонировка", "Обвес"], en: ["Matte PPF", "Tinting", "Body Kit"], uz: ["Mat PPF", "Tonirovka", "Obves"] },
+        d: {
+          ru: "Полная оклейка кузова матовой защитной плёнкой, тонировка стёкол и установка спортивного переднего обвеса.",
+          en: "Full-body matte PPF wrap, window tinting and installation of a sport front body kit.",
+          uz: "Kuzovni to'liq mat himoya plyonkasi bilan qoplash, oyna tonirovkasi va sport old obvesini o'rnatish."
+        }
+      },
+      {
+        id: "camry-ceramic", img: "assets/n5.jpg", rating: 5, dur: "1", mat: "Ceramic / Полироль", master: "Жаҳонгир", res: { ru: "Насыщенный чёрный, глубокий блеск", en: "Deep black, glossy finish", uz: "To'q qora, chuqur yaltiroqlik" },
+        cat: { ru: "Керамика / Полировка", en: "Ceramic / Polishing", uz: "Keramika / Poliruvka" },
+        t: { ru: "BYD Han", en: "BYD Han", uz: "BYD Han" },
+        tags: { ru: ["Полировка", "Керамика"], en: ["Polishing", "Ceramic"], uz: ["Poliruvka", "Keramika"] },
+        d: {
+          ru: "Многоэтапная полировка кузова с последующим нанесением керамического покрытия для глубокого, насыщенного блеска.",
+          en: "Multi-stage body polishing followed by ceramic coating for a deep, rich shine.",
+          uz: "Kuzovni ko'p bosqichli poliruvka qilish va chuqur yaltiroqlik uchun keramik qoplama qo'llash."
+        }
+      }
+    ];
+
+    function renderGallery() {
+      const grid = document.getElementById('galleryGrid');
+      const l = document.documentElement.lang || 'ru';
+      grid.innerHTML = projects.map(p => `
+    <figure class="proj-card" onclick="openProject('${p.id}')">
+      <img src="${p.img}" alt="${p.t[l]}">
+      <div class="cap"><b>${p.t[l]}</b>${'★'.repeat(p.rating)}</div>
+    </figure>`).join('');
+    }
+    function openProject(id) {
+      const p = projects.find(x => x.id === id); if (!p) return;
+      const l = document.documentElement.lang || 'ru';
+      const dayW = { ru: "дн.", en: "d", uz: "kun" }[l];
+      const yrW = { ru: "лет", en: "yr", uz: "yil" }[l];
+      document.getElementById('opImg').src = p.img;
+      document.getElementById('opCat').textContent = p.cat[l];
+      document.getElementById('opTitle').textContent = p.t[l];
+      document.getElementById('opStars').textContent = '★'.repeat(p.rating);
+      document.getElementById('opTags').innerHTML = p.tags[l].map(t => `<span>${t}</span>`).join('');
+      document.getElementById('opDesc').textContent = p.d[l];
+      document.getElementById('opDuration').textContent = p.dur + ' ' + dayW;
+      document.getElementById('opMaterial').textContent = p.mat;
+      document.getElementById('opMaster').textContent = p.master;
+      document.getElementById('opResult').textContent = p.res[l];
+      document.getElementById('projectOverlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+      if (location.hash !== '#/project/' + id) history.pushState({ proj: id }, '', '#/project/' + id);
+    }
+    function closeProject() {
+      document.getElementById('projectOverlay').classList.remove('open');
+      document.body.style.overflow = '';
+      if (location.hash.startsWith('#/project/')) history.pushState({}, '', location.pathname + location.search);
+    }
+    window.addEventListener('popstate', () => {
+      const m = location.hash.match(/^#\/project\/(.+)$/);
+      if (m) openProject(m[1]); else closeProject();
+    });
+
+    // ---- reviews (stored in this browser only) ----
+    const seedReviews = {
+      ru: [{ n: "Жасур", s: 5, t: "Керамика легла идеально, машина блестит как новая. Спасибо мастерам!" },
+      { n: "Дилноза", s: 5, t: "Салон отмыли до состояния нового авто. Очень аккуратная работа." }],
+      en: [{ n: "Jasur", s: 5, t: "Ceramic coating turned out perfect, the car shines like new. Thank you!" },
+      { n: "Dilnoza", s: 5, t: "Interior looks brand new after cleaning. Very careful work." }],
+      uz: [{ n: "Jasur", s: 5, t: "Keramika juda chiroyli yotdi, mashina yangidek yaltiraydi. Rahmat ustalarga!" },
+      { n: "Dilnoza", s: 5, t: "Salon yangi avtomobildek tozalandi. Juda puxta ish." }]
+    };
+    let starVal = 5;
+    document.querySelectorAll('#starPick span').forEach(s => {
+      s.addEventListener('click', () => { starVal = +s.dataset.v; paintStars(); });
+    });
+    function paintStars() {
+      document.querySelectorAll('#starPick span').forEach(s => s.classList.toggle('on', +s.dataset.v <= starVal));
+    }
+    const REVIEWS_PAGE = 6;
+    let reviewsVisible = REVIEWS_PAGE;
+    function getStoredReviews() {
+      try { return JSON.parse(localStorage.getItem('std_reviews') || '[]'); } catch (e) { return []; }
+    }
+    function renderReviews() {
+      const l = document.documentElement.lang || 'ru';
+      const full = [...getStoredReviews().slice().reverse(), ...(seedReviews[l] || seedReviews.ru)];
+      const shown = full.slice(0, reviewsVisible);
+      document.getElementById('reviewsList').innerHTML = shown.map(r => `
+    <div class="review-card"><div class="rn">${r.n}</div><div class="stars">${'★'.repeat(r.s)}</div><div class="rt">${r.t}</div></div>
+  `).join('');
+      const wrap = document.getElementById('showMoreWrap');
+      if (full.length > reviewsVisible) { wrap.style.display = 'block'; }
+      else { wrap.style.display = 'none'; }
+    }
+    function showMoreReviews() {
+      reviewsVisible += REVIEWS_PAGE;
+      renderReviews();
+    }
+    function submitReview() {
+      const n = document.getElementById('revName').value.trim();
+      const t = document.getElementById('revText').value.trim();
+      if (!n || !t) return;
+      let arr = getStoredReviews();
+      arr.push({ n, s: starVal, t });
+      if (arr.length > 200) arr = arr.slice(arr.length - 200); // keep storage bounded
+      try { localStorage.setItem('std_reviews', JSON.stringify(arr)); } catch (e) { }
+      document.getElementById('revName').value = '';
+      document.getElementById('revText').value = '';
+      starVal = 5; paintStars();
+      reviewsVisible = REVIEWS_PAGE;
+      renderReviews();
+    }
+    paintStars();
+    renderGallery();
+    renderReviews();
+    const initM = location.hash.match(/^#\/project\/(.+)$/);
+    if (initM) openProject(initM[1]);
+
+    try {
+      const saved = localStorage.getItem('std_lang');
+      if (saved && dict[saved]) setLang(saved);
+    } catch (e) { }
+  </script>
+</body>
+
+</html>
